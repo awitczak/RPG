@@ -9,6 +9,7 @@
 #include "heroClasses.cpp"
 #include "battle.cpp"
 #include "battleLog.cpp"
+#include "loot.cpp"
 
 using namespace std;
 
@@ -17,8 +18,7 @@ int main(void)
     srand(time(NULL));
     system("cls");
     string n = ""; // hero name
-    HeroCreation character(n, 0, 0, 0, 0, 0);
-    character.HP = 50;
+    HeroCreation hero(n, 0, 0, 0, 0, 0);
 
     // battle log
     battleLog bl;
@@ -36,9 +36,7 @@ int main(void)
 
         if (n.length() != 0)
         {
-            HeroCreation character(n, 0, 0, 0, 0, 0);
-            character.load(false, 0);
-            character.dispAttributes();
+            hero.dispAttributes();
         }
 
         cout << "\n\tPlease choose one of the following options: " << endl;
@@ -47,8 +45,10 @@ int main(void)
         cout << "\t\t3. Generate monsters" << endl;
         cout << "\t\t4. Go on an adventure" << endl;
         cout << "\t\t5. Display the session battle log" << endl;
-        cout << "\t\t6. How to play" << endl;
-        cout << "\t\t7. Exit" << endl;
+        cout << "\t\t6. Display the items available to obtain in the game" << endl;
+        cout << "\t\t7. Hero inventory" << endl;
+        cout << "\t\t8. How to play" << endl;
+        cout << "\t\t9. Exit" << endl;
         cout << "\n\tPlease enter: ";
         cin >> userChoice;
 
@@ -62,7 +62,7 @@ int main(void)
         }
 
         if (userChoice == 1)
-        {
+        {   // creating character
             int s, d, e, i, c, classChoice;
             enum heroClass
             {
@@ -131,8 +131,7 @@ int main(void)
                 cout << endl;
             }
 
-            HeroCreation hero(n, s, d, e, i, c);
-
+            hero.createHero(n, s, d, e, i, c);
             hero.dispAttributes();
             system("pause");
 
@@ -199,6 +198,7 @@ int main(void)
         }
         else if (userChoice == 2)
         {
+            // loading character
             bool noSuchHero = true;
             vector<string> listOfCharacters;
             system("cls");
@@ -234,15 +234,15 @@ int main(void)
                 continue;
             }
             else
-            {
-                HeroCreation character(n, 0, 0, 0, 0, 0);
-                character.load(false, 0);
-                character.dispAttributes();
+            {   
+                hero.createHero(n,0,0,0,0,0);
+                hero.load(false, 0);
+                hero.dispAttributes();
                 system("pause");
             }
         }
         else if (userChoice == 3)
-        {
+        {   // generating monsters
             system("cls");
             int monsterHowMany = 5;
             cout << "Proceeding to create five monsters." << endl;
@@ -256,7 +256,7 @@ int main(void)
             monstersCreated = true;
         }
         else if (userChoice == 4)
-        {
+        {   // battle
             if (monstersCreated)
             {
                 if (n.length() == 0)
@@ -268,7 +268,6 @@ int main(void)
                 cout << "Chosen hero: " << n << endl;
                 system("pause");
                 MonsterCreation monster[5];
-                HeroCreation hero(n, 0, 0, 0, 0, 0);
 
                 int whichMonster = rand() % 5;
                 // loading the characters
@@ -334,8 +333,20 @@ int main(void)
                 system("pause");
             }
         }
-        else if (userChoice == 6)
-        {
+        else if (userChoice == 6) 
+        {   
+            // displaying all items available
+            Items itemLoad;
+            itemLoad.itemLoad();
+            itemLoad.disp_all_items();
+        }
+        else if (userChoice == 7) 
+        {   
+            // displaying all items in inventory
+            hero.dispInventory();
+        }
+        else if (userChoice == 8)
+        {   // how to
             system("cls");
             cout << "In order to play the game, you have to start with creating your own hero (1st option)." << endl
                  << "To do that, you are required to type in the name of the hero, and then choose numbers from 0 to 10 for each attribute." << endl
@@ -373,14 +384,14 @@ int main(void)
 
             system("pause");
         }
-        else if (userChoice == 7)
-        {
+        else if (userChoice == 9)
+        {   // quit
             system("cls");
             cout << "Shutting down..." << endl;
             exitGame = true;
         }
         else
-        {
+        {   // wrong entry
             system("cls");
             cout << "Not a valid choice! Error (A27).";
             Sleep(3000);

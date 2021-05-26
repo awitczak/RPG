@@ -1,0 +1,12 @@
+Cloak_of_increased_willpower 		1 0 3 0 0 0 5		0
+Rusty_greatsword 			1 0 0 0 0 0 20		1
+Double_handed_dagger_of_dexterity 	1 3 0 0 0 0 5		2
+The_skull_of_a_very_intelligent_gnome 	0 0 0 2 1 0 10		3
+Bonebow_the_destructor 			0 2 1 0 0 0 10		4
+Stick_of_sorrow 			0 0 0 0 1 0 20		5
+Shiny_breastplate_of_Argos 		0 0 5 0 0 20 2		6
+Old_loincloth 				0 1 0 0 -1 -5 25	7
+The_Only_Ring 				0 0 0 4 0 0 2		8
+The_other_ring 				0 0 0 0 0 0 25		9
+An_enormous_axe 			4 -2 -1 0 -1 0 10	10
+A_worrisome_jade_emblem 		1 1 1 1 1 0 10		11

@@ -21,6 +21,7 @@ public:
     void load(bool ifMonster, int whichMonster);
     void list_update();
     std::vector<std::string> dispList();
+    int itemLoad();
 };
 
 #endif

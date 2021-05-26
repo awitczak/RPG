@@ -15,9 +15,12 @@ class battleMechanics;
 class HeroCreation : public FileManagement
 {
 public:
+    vector<items> inventory;
     HeroCreation(std::string n, int s, int d, int e, int i, int c);
     ~HeroCreation(){};
+    void createHero(std::string n, int s, int d, int e, int i, int c);
     void dispAttributes();
+    void dispInventory();
     void levelUp();
 };
 

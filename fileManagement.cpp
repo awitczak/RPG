@@ -3,7 +3,7 @@
 using namespace std;
 
 void FileManagement::save(bool ifMonster)
-{   
+{
     fstream characterFile;
     filename = name + ".txt";
 
@@ -12,7 +12,7 @@ void FileManagement::save(bool ifMonster)
         filename = "monsters.txt";
         characterFile.open(filename, std::ios_base::app);
     }
-    else 
+    else
     {
         characterFile.open(filename, std::ios_base::out);
     }
@@ -30,10 +30,12 @@ void FileManagement::save(bool ifMonster)
     characterFile << charisma;
 
     if (!ifMonster)
-    {   
+    {
         characterFile << " ";
         characterFile << level << " ";
         characterFile << XP;
+        cout << "Adding xp" << endl;
+        system("pause");
     }
 
     if (ifMonster)
@@ -87,12 +89,13 @@ void FileManagement::load(bool ifMonster, int whichMonster)
     characterFile.close();
 }
 
-void FileManagement::list_update() {
+void FileManagement::list_update()
+{
     fstream characterFile;
     filename = "heroList.txt";
 
     characterFile.open(filename, std::ios_base::app);
-    
+
     characterFile << name << endl;
 
     if (!characterFile)
@@ -103,7 +106,8 @@ void FileManagement::list_update() {
     characterFile.close();
 }
 
-vector<string> FileManagement::dispList() {
+vector<string> FileManagement::dispList()
+{
     vector<string> listOfCharacters;
     string line;
     int counter = 0;
@@ -111,9 +115,10 @@ vector<string> FileManagement::dispList() {
     filename = "heroList.txt";
 
     characterFile.open(filename, std::ios_base::in);
-    
+
     cout << "Existing characters: " << endl;
-    while (getline(characterFile,line)) {
+    while (getline(characterFile, line))
+    {
         counter++;
         cout << counter << ". " << line << endl;
         listOfCharacters.push_back(line);
@@ -122,3 +127,39 @@ vector<string> FileManagement::dispList() {
 
     return listOfCharacters;
 }
+
+int FileManagement::itemLoad()
+{   
+    int itemCount;
+    filename = "items.txt";
+    fstream itemFile;
+    itemFile.open(filename, ios::in);
+
+    if (itemFile.good())
+    {   
+        itemCount = 0;
+        while (!itemFile.eof())
+        {   
+            itemCount++;
+            items newItem;
+            itemFile >> newItem.name;
+            itemFile >> newItem.strength;
+            itemFile >> newItem.dexterity;
+            itemFile >> newItem.endurance;
+            itemFile >> newItem.intelligence;
+            itemFile >> newItem.charisma;
+            itemFile >> newItem.HP;
+            itemFile >> newItem.dropRate;
+            itemFile >> newItem.ID;
+
+            Item.push_back(newItem);
+        }
+    }
+    else
+        cout << "File access forbidden!" << endl;
+
+    itemFile.close();
+
+    return itemCount;
+}
+

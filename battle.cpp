@@ -4,6 +4,7 @@
 
 #include "battle.hpp"
 #include "battleLog.hpp"
+#include "loot.hpp"
 
 using namespace std;
 
@@ -408,6 +409,14 @@ bool battleMechanics::battleResult(bool result, HeroCreation &hero, MonsterCreat
           hero.XP += monster.XP;
           hero.levelUp();
           cout << "Current XP pool: " << hero.XP << endl;
+
+          Items item;
+          item.gettingLoot(hero);
+
+          // replenish endurance
+          hero.endurance = temp_endurance;
+          // saving progress
+          hero.save(false);
           return true;
      }
      else
@@ -416,11 +425,11 @@ bool battleMechanics::battleResult(bool result, HeroCreation &hero, MonsterCreat
           hero.XP -= monster.XP;
           hero.levelUp();
           cout << "Current XP pool: " << hero.XP << endl;
+
+          // replenish endurance
+          hero.endurance = temp_endurance;
+          // saving progress
+          hero.save(false);
           return false;
      }
-
-     // replenish endurance
-     hero.endurance = temp_endurance;
-     // saving progress
-     hero.save(false);
 }

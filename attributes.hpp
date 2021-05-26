@@ -9,6 +9,22 @@
 class Attributes
 {
 public:
+
+    struct items {
+        std::string name;
+        int strength;
+        int dexterity;
+        int endurance;
+        int intelligence;
+        int charisma;
+        int HP;
+        int dropRate;
+        int ID;
+
+        int reqLvl = strength + dexterity + endurance + intelligence + charisma; // so the net amount of statistics gained correspond to the required level
+    };
+
+    std::vector<items> Item;
     std::string name;
     int XP;
     int HP;
