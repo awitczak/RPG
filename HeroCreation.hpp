@@ -22,6 +22,7 @@ public:
     void dispAttributes();
     void dispInventory();
     void levelUp();
+    void equipItem();
 };
 
 #endif

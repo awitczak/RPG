@@ -34,8 +34,6 @@ void FileManagement::save(bool ifMonster)
         characterFile << " ";
         characterFile << level << " ";
         characterFile << XP;
-        cout << "Adding xp" << endl;
-        system("pause");
     }
 
     if (ifMonster)
@@ -151,6 +149,9 @@ int FileManagement::itemLoad()
             itemFile >> newItem.HP;
             itemFile >> newItem.dropRate;
             itemFile >> newItem.ID;
+
+            // lvl required as sum of attributes gained
+            newItem.reqLvl = newItem.strength + newItem.dexterity + newItem.endurance + newItem.intelligence + newItem.charisma;
 
             Item.push_back(newItem);
         }

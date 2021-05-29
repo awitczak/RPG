@@ -144,7 +144,7 @@ void battleLog::showElements()
         el = head;
         while (el)
         {
-            cout << "Battle: " << el->nameHero << " vs " << el->nameMonster << "\t | Result: " << el->result << " | Battle ID: " << el->key << endl;
+            cout << "Battle: " << el->nameHero << " vs " << el->nameMonster << "\t\t | Result: " << el->result << "\t| Battle ID: " << el->key << endl;
             el = el->next;
         }
     }

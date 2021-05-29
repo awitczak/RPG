@@ -10,6 +10,7 @@
 #include "battle.cpp"
 #include "battleLog.cpp"
 #include "loot.cpp"
+#include "equipmentManagement.cpp"
 
 using namespace std;
 
@@ -23,6 +24,9 @@ int main(void)
     // battle log
     battleLog bl;
     battleList *p;
+
+    // equiping items
+    equipment_DoubleLList EQ;
 
     int userChoice;
     bool exitGame = false;
@@ -62,7 +66,7 @@ int main(void)
         }
 
         if (userChoice == 1)
-        {   // creating character
+        { // creating character
             int s, d, e, i, c, classChoice;
             enum heroClass
             {
@@ -234,15 +238,15 @@ int main(void)
                 continue;
             }
             else
-            {   
-                hero.createHero(n,0,0,0,0,0);
+            {
+                hero.createHero(n, 0, 0, 0, 0, 0);
                 hero.load(false, 0);
                 hero.dispAttributes();
                 system("pause");
             }
         }
         else if (userChoice == 3)
-        {   // generating monsters
+        { // generating monsters
             system("cls");
             int monsterHowMany = 5;
             cout << "Proceeding to create five monsters." << endl;
@@ -256,7 +260,7 @@ int main(void)
             monstersCreated = true;
         }
         else if (userChoice == 4)
-        {   // battle
+        { // battle
             if (monstersCreated)
             {
                 if (n.length() == 0)
@@ -285,7 +289,7 @@ int main(void)
                     p->result = "Hero won.";
                     bl.push_head(p);
                 }
-                else 
+                else
                 { // battle log monster wins
                     battleLogCounter++;
                     p = new battleList;
@@ -318,8 +322,8 @@ int main(void)
                 system("pause");
             }
         }
-        else if (userChoice == 5) 
-        {   
+        else if (userChoice == 5)
+        {
             // battle log display
             if (bl.size() > 0 && bl.size() <= 10)
             {
@@ -333,20 +337,109 @@ int main(void)
                 system("pause");
             }
         }
-        else if (userChoice == 6) 
-        {   
+        else if (userChoice == 6)
+        {
             // displaying all items available
             Items itemLoad;
             itemLoad.itemLoad();
             itemLoad.disp_all_items();
         }
-        else if (userChoice == 7) 
-        {   
+        else if (userChoice == 7)
+        {
+            int eq_userChoice;
+            int item_userChoice;
+            vector<int> temp_itemID;
+            int equipCnt = 0;
+            bool itemExists = false;
+            int item_pos = 0;
+
+            system("cls");
             // displaying all items in inventory
             hero.dispInventory();
+
+            for (int i = 0; i < hero.inventory.size(); i++)
+            {
+                temp_itemID.push_back(hero.inventory[i].ID);
+            }
+
+            cout << "Choose:" << endl;
+            cout << "1. Equip item" << endl;
+            cout << "2. View equipped items" << endl;
+            cout << "3. Return to main menu" << endl;
+            cout << "Please enter: ";
+            cin >> eq_userChoice;
+
+            if (eq_userChoice == 1)
+            {
+                cout << "Enter the ID of the item that you want to equip: ";
+                cin >> item_userChoice;
+                for (int i = 0; i < temp_itemID.size(); i++)
+                {
+                    if (temp_itemID[i] == item_userChoice)
+                    {
+                        item_pos = i;
+                        itemExists = true;
+                        break;
+                    }
+                    else
+                    {
+                        itemExists = false;
+                    }
+                }
+                if (itemExists)
+                {
+                    if (hero.level >= hero.inventory[item_pos].reqLvl)
+                    {
+                        cout << "Equipping the selected item..." << endl;
+                        if (equipCnt == 0)
+                        {
+                            EQ.create_list(hero.inventory[item_pos]);
+                            // updating the hero statistics
+                            hero.strength += hero.inventory[item_pos].strength;
+                            hero.dexterity += hero.inventory[item_pos].dexterity;
+                            hero.endurance += hero.inventory[item_pos].endurance;
+                            hero.intelligence += hero.inventory[item_pos].intelligence;
+                            hero.charisma += hero.inventory[item_pos].charisma;
+                            hero.HP += hero.inventory[item_pos].HP;
+                        }
+                        else
+                        {
+                            EQ.add_begin(hero.inventory[item_pos]);
+                            // updating the hero statistics
+                            hero.strength += hero.inventory[item_pos].strength;
+                            hero.dexterity += hero.inventory[item_pos].dexterity;
+                            hero.endurance += hero.inventory[item_pos].endurance;
+                            hero.intelligence += hero.inventory[item_pos].intelligence;
+                            hero.charisma += hero.inventory[item_pos].charisma;
+                            hero.HP += hero.inventory[item_pos].HP;
+                        }
+                        equipCnt++;
+                    }
+                    else 
+                    {
+                        cout << "The hero has to become more experienced before making use of such a powerful item." << endl;
+                        system("pause");
+                    }
+                }
+            }
+            else if (eq_userChoice == 2)
+            {
+                system("cls");
+                EQ.display_dlist();
+                system("pause");
+            }
+            else if (eq_userChoice == 3)
+            {
+                // go back to menu
+            }
+            else
+            {
+                cout << "Invalid entry!";
+                system("pause");
+            }
         }
         else if (userChoice == 8)
-        {   // how to
+        { // how to
             system("cls");
             cout << "In order to play the game, you have to start with creating your own hero (1st option)." << endl
                  << "To do that, you are required to type in the name of the hero, and then choose numbers from 0 to 10 for each attribute." << endl
@@ -385,13 +478,13 @@ int main(void)
             system("pause");
         }
         else if (userChoice == 9)
-        {   // quit
+        { // quit
             system("cls");
             cout << "Shutting down..." << endl;
             exitGame = true;
         }
         else
-        {   // wrong entry
+        { // wrong entry
             system("cls");
             cout << "Not a valid choice! Error (A27).";
             Sleep(3000);

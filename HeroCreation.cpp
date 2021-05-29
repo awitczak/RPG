@@ -52,6 +52,7 @@ void HeroCreation::dispInventory()
         cout << "Intelligence: \t" << inventory[i].intelligence << endl;
         cout << "Charisma: \t" << inventory[i].charisma << endl;
         cout << "HP: \t\t" << inventory[i].HP << endl;
+        cout << "ID: \t\t" << inventory[i].ID << endl;
         cout << endl;
     }
     system("pause");
@@ -66,4 +67,8 @@ void HeroCreation::levelUp()
         cout << "You reached a new level!" << endl;
         cout << "Current level: " << level << endl;
     }
+}
+void HeroCreation::equipItem() 
+{
+    
 }
