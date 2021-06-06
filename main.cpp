@@ -26,7 +26,7 @@ int main(void)
     battleList *p;
 
     // equiping items
-    equipment_DoubleLList EQ;
+    equipment EQ;
 
     int userChoice;
     bool exitGame = false;
@@ -365,7 +365,8 @@ int main(void)
             cout << "Choose:" << endl;
             cout << "1. Equip item" << endl;
             cout << "2. View equipped items" << endl;
-            cout << "3. Return to main menu" << endl;
+            cout << "3. Search for an item" << endl;
+            cout << "4. Return to main menu" << endl;
             cout << "Please enter: ";
             cin >> eq_userChoice;
 
@@ -429,6 +430,20 @@ int main(void)
                 system("pause");
             }
             else if (eq_userChoice == 3)
+            {   
+                string itemName;
+                system("cls");
+                cout << "Which item would you like to find? Please enter it's name: ";
+                cin >> itemName;
+                cout << endl;
+
+                if (!EQ.findingItem(itemName, hero.inventory,0))
+                {
+                    cout << "No such item was found." << endl;
+                }
+                system("pause");
+            }
+            else if (eq_userChoice == 4)
             {
                 // go back to menu
             }

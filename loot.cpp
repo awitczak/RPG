@@ -18,9 +18,6 @@ void Items::disp_all_items()
     system("pause");
     system("cls");
 }
-void Items::lvl_check(HeroCreation &hero) // hero can only equip items of a smaller or equal level to his experience level
-{
-}
 int Items::monsterLootDetermination()
 {
     int determinedItem;

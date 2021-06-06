@@ -26,7 +26,7 @@ struct node
     struct node *next;
     struct node *prev;
 } * start; /*Class Declaration*/
-class equipment_DoubleLList : public Attributes
+class equipment : public Attributes
 {
 public:
     int cnt = 0;
@@ -38,9 +38,10 @@ public:
     void display_dlist();
     void count();
     void reverse();
-    equipment_DoubleLList() { start = NULL; }
+    equipment() { start = NULL; }
 
     void dispAttributes(){};
+    bool findingItem(string itemName, vector<items> vecItem, int i);
 };
 
 #endif

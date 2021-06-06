@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void equipment_DoubleLList::create_list(items addThisItem)
+void equipment::create_list(items addThisItem)
 {
     struct node *s, *temp;
     temp = new (struct node);
@@ -35,7 +35,7 @@ void equipment_DoubleLList::create_list(items addThisItem)
 
     cnt++;
 } /** Insertion at the beginning*/
-void equipment_DoubleLList::add_begin(items addThisItem)
+void equipment::add_begin(items addThisItem)
 {
     if (start == NULL)
     {
@@ -64,7 +64,7 @@ void equipment_DoubleLList::add_begin(items addThisItem)
 
     cnt++;
 } /** Insertion of element at a particular position*/
-void equipment_DoubleLList::add_after(items addThisItem, int pos)
+void equipment::add_after(items addThisItem, int pos)
 {
     if (start == NULL)
     {
@@ -115,7 +115,7 @@ void equipment_DoubleLList::add_after(items addThisItem, int pos)
 
     cnt++;
 } /** Deletion of element from the list*/
-void equipment_DoubleLList::delete_element(items addThisItem)
+void equipment::delete_element(items addThisItem)
 {
     struct node *tmp, *q; /*first element deletion*/
     if (start->listNum == addThisItem.ID)
@@ -151,7 +151,7 @@ void equipment_DoubleLList::delete_element(items addThisItem)
     }
     cnt--;
 } /** Display elements of Doubly Link List*/
-void equipment_DoubleLList::display_dlist()
+void equipment::display_dlist()
 {
     struct node *q;
     if (start == NULL)
@@ -178,7 +178,7 @@ void equipment_DoubleLList::display_dlist()
     }
     cout << endl;
 } /** Number of elements in Doubly Link List*/
-void equipment_DoubleLList::count()
+void equipment::count()
 {
     struct node *q = start;
     int cnt = 0;
@@ -189,7 +189,7 @@ void equipment_DoubleLList::count()
     }
     cout << "Number of elements are: " << cnt << endl;
 } /** Reverse Doubly Link List*/
-void equipment_DoubleLList::reverse()
+void equipment::reverse()
 {
     struct node *p1, *p2;
     p1 = start;
@@ -205,4 +205,22 @@ void equipment_DoubleLList::reverse()
     }
     start = p1;
     cout << "List Reversed" << endl;
+}
+bool equipment::findingItem(string itemName, vector<items> vecItem, int i) 
+{   
+    int vectorSize = vecItem.size();
+    if (i >= vectorSize) 
+    {
+        return false;
+    }
+    if (vecItem[i].name != itemName)
+    {
+        return findingItem(itemName,vecItem,i+1);
+    }
+    if (vecItem[i].name == itemName)
+    {
+        cout << "The found item is: " << vecItem[i].name << endl;
+        return true;
+    }
+    return false;
 }
